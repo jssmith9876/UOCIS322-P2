@@ -13,6 +13,7 @@ config = configparser.ConfigParser()
 config.read("credentials.ini")
 docroot = config["DEFAULT"]["DOCROOT"]
 
+# For a generic request
 @app.route("/<path:request>")
 def return_page(request):
     # If the request has a bad character => 403
@@ -22,7 +23,6 @@ def return_page(request):
     # If the request exists in the docroot => Return the requested page
     elif (os.path.exists(docroot + request)):
         return send_from_directory(docroot, request)
-        # return render_template(f"{request}")
 
     # Otherwise, the file doesn't exist => 404
     else:
