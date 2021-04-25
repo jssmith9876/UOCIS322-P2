@@ -16,8 +16,8 @@ docroot = config["DEFAULT"]["DOCROOT"]
 # For a generic request
 @app.route("/<path:request>")
 def return_page(request):
-    # If the request has a bad character => 403
-    if ('~' in request or '..' in request):
+    # If the request has a bad character ('~', '..', or '//') => 403
+    if ('~' in request or '..' in request or '//' in request):
         abort(403)
 
     # If the request exists in the docroot => Return the requested page
